@@ -1,5 +1,5 @@
 const enEn =  {
-    searchResult: 'Results for {searchText}'
+    searchResult: 'Results for {query}'
 }
 
 export function get (name, replace, replaceText) {

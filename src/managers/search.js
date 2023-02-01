@@ -4,9 +4,14 @@ import credentials from "../credentials.js";
 const searchEndpoint = config.searchEndpoint;
 const apiKey = credentials.omdbApiKey;
 
-export default function fetchSearch ({query}) {
-    let url = searchEndpoint.replace('{apikey}', apiKey);
-    url += `&s=${query}`;
+export default function fetchSearch ({query, page}) {
+    let url = new URL(searchEndpoint.replace('{apikey}', apiKey));
+    const params = {
+        s: query,
+        page
+    };
+
+    for (const key in params) url.searchParams.append(key, params[key]);
 
     const formatResponse = (searchResponse) => {
         if (searchResponse.Response === 'True') {
