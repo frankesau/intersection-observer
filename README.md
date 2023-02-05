@@ -9,3 +9,9 @@ This web app was built using the following technologies and services:
 
 The intention of this project is to test the intersection observer API for lazy loading more content.
 In this case the user can search for a movie or series title which are then presented ona grid.
+
+## Search Page
+![Search main page](https://github.com/frankesau/intersection-observer/blob/main/public/search.jpg)
+
+## Search Results
+![Search main page](https://github.com/frankesau/intersection-observer/blob/main/public/searchresult.jpg)
