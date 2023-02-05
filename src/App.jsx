@@ -3,26 +3,29 @@ import fetchSearch from "./managers/search.js";
 import {intersectionObserver, observe, disconnect} from "./managers/intersectionObserver.js";
 import {get as locales} from "./assets/en-En.js";
 import './App.css'
+import {IconSearch} from '@tabler/icons-react';
 
 let lazyLoadObserver;
 let searchPage = 0;
 
 function App() {
-    const [count, setCount] = useState(0);
     const [searchResult, setSearchResult] = useState([]);
-    const [searchText, setSearchText] = useState('');
+    const [searchText, setSearchText] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
     const currentObservableElementRef = useRef(null);
 
     const searchInput = () => {
         const query = document.querySelector('.input').value;
         const page = ++searchPage;
 
+        setIsLoading(true);
         fetchSearch({
             query,
             page
         }).then((response) => {
             const newSearchResult = [...searchResult, ...response]
 
+            setIsLoading(false);
             setSearchText(locales('searchResult', '{query}', query));
             setSearchResult(newSearchResult);
         })
@@ -31,7 +34,6 @@ function App() {
     const onSearch = () => {
         setSearchResult([]);
         setSearchText('');
-        setCount(0);
         searchPage = 0;
 
         searchInput();
@@ -75,7 +77,10 @@ function App() {
             <h1>Search</h1>
             <section className="search-view">
                 <div className="search-input">
-                    <input className="input"/>
+                    <section className="search-input__box">
+                        <IconSearch className="icon"/>
+                        <input className="input" placeholder={locales('searchInputPlaceholder')}/>
+                    </section>
                     <button
                         className="button"
                         onClick={onSearch}
@@ -97,10 +102,10 @@ function App() {
                         })}
                     </div>
                 </div>
-                <button onClick={() => setCount((count) => count + 1)}>
-                    count is {count}
-                </button>
             </section>
+            <div className={`spinners ${isLoading ? 'spin' : ''}`}>
+                <div className="spinner"></div>
+            </div>
         </main>
     )
 }
