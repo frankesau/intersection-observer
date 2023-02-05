@@ -74,21 +74,23 @@ function App() {
 
     return (
         <main className="search">
-            <h1>Search</h1>
-            <section className="search-view">
-                <div className="search-input">
-                    <section className="search-input__box">
-                        <IconSearch className="icon"/>
-                        <input className="input" placeholder={locales('searchInputPlaceholder')}/>
-                    </section>
-                    <button
-                        className="button"
-                        onClick={onSearch}
-                    >Search
-                    </button>
-                </div>
-                <div className="search-result">
-                    <h2>{searchText}</h2>
+            <section className={searchResult.length >= 3 ? 'search-view scrolled' : 'search-view'}>
+                <section className="search-header">
+                    <h1 className="search-title">Search</h1>
+                    <div className="search-input">
+                        <section className="search-input__box">
+                            <IconSearch className="icon"/>
+                            <input className="input" placeholder={locales('searchInputPlaceholder')}/>
+                        </section>
+                        <button
+                            className="button"
+                            onClick={onSearch}
+                        >Search
+                        </button>
+                    </div>
+                </section>
+                <section className="search-result">
+                    <h2 className="search-result-title">{searchText}</h2>
                     <div className="search-grid">
                         {searchResult.map((movie, index) => {
                             return (
@@ -101,8 +103,9 @@ function App() {
                             );
                         })}
                     </div>
-                </div>
+                </section>
             </section>
+
             <div className={`spinners ${isLoading ? 'spin' : ''}`}>
                 <div className="spinner"></div>
             </div>

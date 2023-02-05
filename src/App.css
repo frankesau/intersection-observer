@@ -9,6 +9,34 @@
     display: grid;
 }
 
+.search-header {
+    position: sticky;
+    top: 0;
+    background-color: transparent;
+}
+
+.search-input {
+    display: flex;
+    gap: 1rem;
+}
+
+.search-title {
+    text-align: left;
+    transition: font-size 1s ease-in-out;
+}
+
+.search-result-title {
+    margin: 2rem 0;
+}
+
+.search-view.scrolled .search-title {
+    font-size: 2rem;
+}
+
+.search-view.scrolled .search-header {
+    background-color: var(--main-dark-opacity);
+}
+
 .search-grid {
     display: grid;
     grid-template-columns: 1fr;

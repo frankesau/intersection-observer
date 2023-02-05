@@ -23,6 +23,7 @@
   --main-light-gray: #f9f9f9;
   --main-blue: #00A8E8;
   --main-blue-opacity: rgba(0, 168, 232, 0.6);
+  --main-dark-opacity: rgba(0, 8, 20, 0.9);
 
   /*States*/
   --main-input-text-hover: var(--main-light-gray);
