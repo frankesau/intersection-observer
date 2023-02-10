@@ -6,17 +6,17 @@ import './App.css'
 import {IconSearch} from '@tabler/icons-react';
 
 let lazyLoadObserver;
-let searchPage = 0;
 
 function App() {
     const [searchResult, setSearchResult] = useState([]);
     const [searchText, setSearchText] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const currentObservableElementRef = useRef(null);
+    const searchPage = useRef(0);
 
     const searchInput = () => {
-        const query = document.querySelector('.input').value;
-        const page = ++searchPage;
+        const query = document.querySelector('.input').value; // new window.FormData(event.target)
+        const page = ++searchPage.current;
 
         setIsLoading(true);
         fetchSearch({
@@ -34,7 +34,7 @@ function App() {
     const onSearch = () => {
         setSearchResult([]);
         setSearchText('');
-        searchPage = 0;
+        searchPage.current = 0;
 
         searchInput();
     };
@@ -80,7 +80,7 @@ function App() {
                     <div className="search-input">
                         <section className="search-input__box">
                             <IconSearch className="icon"/>
-                            <input className="input" placeholder={locales('searchInputPlaceholder')}/>
+                            <input className="input" name="query" placeholder={locales('searchInputPlaceholder')}/>
                         </section>
                         <button
                             className="button"
@@ -95,10 +95,15 @@ function App() {
                         {searchResult.map((movie, index) => {
                             return (
                                 <div className="asset"
-                                     key={movie.imdbID}
+                                     key={movie.id}
                                      ref={index === searchResult.length - 1 ? currentObservableElementRef : null}>
-                                    <img alt={`Poster for ${movie.Title}`} className="asset-poster" src={movie.Poster}/>
-                                    <h3 className="asset-title">{movie.Title}</h3>
+                                    <img
+                                        alt={`Poster for ${movie.title}`}
+                                        className="asset-poster"
+                                        src={movie.image}
+                                        onLoad={}
+                                    />
+                                    <h3 className="asset-title">{movie.title}</h3>
                                 </div>
                             );
                         })}
